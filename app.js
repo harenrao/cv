@@ -1,15 +1,14 @@
-// Minimal motion for elegance
-document.querySelectorAll('section').forEach(sec=>{
-  sec.style.opacity=0;
-  sec.style.transform='translateY(30px)';
-});
-window.addEventListener('scroll',()=>{
-  document.querySelectorAll('section').forEach(sec=>{
-    const r=sec.getBoundingClientRect();
-    if(r.top<window.innerHeight*0.85){
-      sec.style.opacity=1;
-      sec.style.transform='translateY(0)';
-      sec.style.transition='all .8s ease';
+// Minimal entrance animation
+window.addEventListener("load", () => {
+  document.querySelector(".hero-inner").animate(
+    [
+      { opacity: 0, transform: "translateY(40px)" },
+      { opacity: 1, transform: "translateY(0)" }
+    ],
+    {
+      duration: 1200,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      fill: "forwards"
     }
-  });
+  );
 });
