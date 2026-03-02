@@ -1,6 +1,6 @@
-// Minimal entrance animation
 window.addEventListener("load", () => {
-  document.querySelector(".hero-inner").animate(
+  const hero = document.querySelector(".hero-inner");
+  hero.animate(
     [
       { opacity: 0, transform: "translateY(40px)" },
       { opacity: 1, transform: "translateY(0)" }
