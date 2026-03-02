@@ -1,32 +1,49 @@
 // Scroll reveal
-const reveals=document.querySelectorAll('.reveal');
-const obs=new IntersectionObserver(entries=>{
- entries.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add('active')}
- })
-},{threshold:.2});
-reveals.forEach(r=>obs.observe(r));
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
 
-// Counters
-const counters=document.querySelectorAll('[data-count]');
-counters.forEach(c=>{
- let end=parseFloat(c.dataset.count);
- let cur=0;
- let inc=end/60;
- function tick(){
-  cur+=inc;
-  if(cur<end){
-    c.innerText=cur.toFixed(end%1?1:0);
-    requestAnimationFrame(tick);
-  }else{
-    c.innerText=end;
-  }
- }
- obs.observe(c.parentElement);
- tick();
-});
+revealEls.forEach(el => revealObserver.observe(el));
 
-// Dark toggle
-document.getElementById('themeToggle').onclick=()=>{
- document.body.classList.toggle('darker');
-};
+// Animated counters
+const counters = document.querySelectorAll('[data-target]');
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = +el.dataset.target;
+    let current = 0;
+    const increment = Math.max(1, Math.floor(target / 60));
+
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        el.textContent = current;
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target;
+      }
+    };
+    update();
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.6 });
+
+counters.forEach(c => counterObserver.observe(c));
+
+// Theme toggle
+const toggle = document.getElementById('themeToggle');
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('theme-darker');
+  });
+}
