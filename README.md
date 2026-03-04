@@ -11,7 +11,7 @@ Business Excellence Consultant | PMO Strategist | Agile Transformation Leader
 4. Choose **main / root**
 5. Your site will be live at:
 
-https://YOURUSERNAME.github.io/harender-portfolio/
+https://harenrao.github.io/cv/
 
 ## Replace
 
