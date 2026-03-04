@@ -1,21 +1,19 @@
 
-# Harender Singh Portfolio Website
+# Harender Singh Portfolio
 
-Complete ready-to-deploy portfolio website.
+Business Excellence Consultant | PMO Strategist | Agile Transformation Leader
 
-## Deployment
+## Deployment (GitHub Pages)
 
-1. Upload all files to a GitHub repository
-2. Go to Settings → Pages
-3. Select main branch
+1. Upload this repository to GitHub.
+2. Go to **Settings → Pages**
+3. Select **Deploy from branch**
+4. Choose **main / root**
+5. Your site will be live at:
 
-Your site will be live at:
+https://YOURUSERNAME.github.io/harender-portfolio/
 
-https://yourusername.github.io/portfolio
+## Replace
 
-## Replace Assets
-
-Replace:
-
-assets/images/profile.jpg
-assets/cv/Harender_Singh_CV.pdf
+- Replace `cv/harender-singh-cv.pdf` with your real CV.
+- Optionally add your photo to `images/profile.jpg` and update the HTML.
