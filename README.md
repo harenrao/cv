@@ -14,3 +14,8 @@ npm run build   # rebuild the published files in the repo root, then commit them
 - Layout and components: `site/src/App.jsx`
 - Theme tokens and styles: `site/src/styles.css` (`:root` block at the top)
 - Images and the CV PDF: `site/public/`
+
+## CV PDF
+
+`site/resume/resume.html` is the source of the downloadable CV. To regenerate the PDF, print it to A4 PDF
+(Chrome: Print, Save as PDF, margins Default) as `site/public/HarenderSingh_cv.pdf`, then run `npm run build`.
