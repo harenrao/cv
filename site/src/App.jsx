@@ -3,7 +3,11 @@ import * as D from './data.js'
 
 /* ---------- helpers ---------- */
 
-const reduceMotion = () =>
+// VITE_EMBED=1 builds the copy hosted inside the Claude app: content shows at rest,
+// the CV opens in a new tab and the form does not hand off to an email app.
+const EMBED = import.meta.env.VITE_EMBED === '1'
+const cvLinkProps = EMBED ? { target: '_blank', rel: 'noopener' } : { download: 'HarenderSingh_CV.pdf' }
+const reduceMotion = () => EMBED ||
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 // Fades and lifts children in once, the first time they enter the viewport.
@@ -148,7 +152,7 @@ function Hero() {
             <Reveal as="p" className="hero-lead" delay={160}>{p.lead}</Reveal>
             <Reveal className="hero-btns" delay={240}>
               <a href="#contact" className="btn btn-pri">Hire Me <Arrow /></a>
-              <a href={p.cv} download="HarenderSingh_CV.pdf" className="btn btn-line">Download CV <Arrow dir="down" /></a>
+              <a href={p.cv} {...cvLinkProps} className="btn btn-line">Download CV <Arrow dir="down" /></a>
             </Reveal>
             <Reveal className="hero-proof" delay={320}>
               <div className="proof-logos">
@@ -380,7 +384,7 @@ function Certs() {
           <div className="cert-ask">
             <h4>Need the full resume?</h4>
             <p>Download a PDF copy with full role history and credentials.</p>
-            <a href={D.profile.cv} download="HarenderSingh_CV.pdf" className="btn btn-pri">Download CV <Arrow dir="down" /></a>
+            <a href={D.profile.cv} {...cvLinkProps} className="btn btn-pri">Download CV <Arrow dir="down" /></a>
           </div>
         </Reveal>
         <Reveal className="cert-card hot" delay={100}>
@@ -478,6 +482,7 @@ function Contact() {
     setBad(missing)
     if (missing.length) return setNote({ text: 'Please fill in the highlighted fields.', err: true })
     const body = `${v.ms}\n\n${v.fn} ${v.ln}\n${v.em}${v.ph ? `\n${v.ph}` : ''}`
+    if (EMBED) return setNote({ text: `Thanks ${v.fn}. Please send this to ${p.email}.`, err: false })
     window.location.href = `mailto:${p.email}?subject=${encodeURIComponent(v.sb)}&body=${encodeURIComponent(body)}`
     setNote({ text: `Your email app should open now. You can also write to ${p.email} directly.`, err: false })
   }
